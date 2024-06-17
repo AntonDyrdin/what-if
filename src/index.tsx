@@ -1,15 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import "./reset-user-agent.css";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Flickering from "./pages/direct-dom-access/Flickering";
+import { Provider } from "react-redux";
+import store from './store'
+import CurrencyPairs from "./pages/pairs/CurrencyPairs";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Flickering />,
+  },
+  {
+    path: "/pairs",
+    element: <CurrencyPairs />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
