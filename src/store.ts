@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {ThunkMiddleware} from 'redux-thunk'
+import pairsReducer from './redux/pairs-reducer';
 
 const store = configureStore({
   reducer: {
     pairs: pairsReducer,
   },
-  middleware: [ThunkMiddleware]
 },)
 
 export default store;
