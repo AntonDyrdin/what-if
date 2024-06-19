@@ -49,10 +49,13 @@ export const pairsSlice: Slice<IPairsSlice> = createSlice({
         payload: IExchange[];
       }
     ) => {
-      return {
-        ...state,
-        exchanges: action.payload,
-      };
+      return filterPairs(
+        {
+          ...state,
+          exchanges: action.payload,
+        },
+        state.filters.currencies
+      );
     },
     appendCurrency: (state, action: { payload: string }) => {
       if (!action.payload) return;
@@ -96,6 +99,7 @@ export const pairsSlice: Slice<IPairsSlice> = createSlice({
           ],
         },
       };
+      localStorage.setItem(FILTERS_LOCAL_STORAGE_KEY, JSON.stringify(newState.filters));
 
       return filterPairs(newState, newState.filters.currencies);
     },
