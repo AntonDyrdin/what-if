@@ -3,11 +3,23 @@
   position: absolute;
   top: 0;
   margin-left: 25px;
+
+  .exchange__pair {
+    position: relative;
+    padding-right: 25px;
+    
+    svg {
+      position: absolute;
+      right: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .controls {
+    margin: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+  }
 }
 
-.controls {
-  margin: 15px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px
-}

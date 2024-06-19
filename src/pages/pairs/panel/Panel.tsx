@@ -3,31 +3,36 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import "./styles.scss";
 import {
   appendCurrency,
+  flipSelection,
   readFiltersFromLocalStorage,
-} from "../../../redux/pairs-filter-reducer";
+  removeCurrency,
+} from "../../../redux/pairs-reducer";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 function Panel() {
-  const filterState = useSelector((state) => (state as any).pairsFilter);
+  const filterState = useAppSelector((state) => state.pairs.filters);
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(readFiltersFromLocalStorage(0));
   }, []);
 
-  function textChanged(
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    if (event.target.value) {
-      setText(event.target.value);
-    }
+  function textChanged(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setText(event.target.value.toUpperCase());
   }
 
   function onAdd() {
     dispatch(appendCurrency(text));
+    setText("");
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.code === "Enter") {
+      dispatch(appendCurrency(text));
+      setText("");
+    }
   }
 
   return (
@@ -37,22 +42,25 @@ function Panel() {
           id="outlined-basic"
           label="Валюта"
           variant="outlined"
-          onChange={(event) => textChanged(event)}
+          value={text}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => textChanged(event)}
           size="small"
+          onKeyDown={onKeyDown}
         />
-        <Button
-          variant="contained"
-          onClick={onAdd}
-          size="small"
-        >
+        <Button variant="contained" onClick={onAdd} size="small">
           +
         </Button>
       </div>
       <div className="exchange__pairs">
         {filterState.currencies.map((c: any) => (
-          <div className="exchange__pair" key={c.name}>
+          <div
+            className="exchange__pair"
+            key={c.name}
+            style={{ background: c.selected ? "#00ffff8c" : "" }}
+            onClick={() => dispatch(flipSelection(c.name))}
+          >
             {c.name}
-            <CloseRoundedIcon fontSize="small"/>
+            <CloseRoundedIcon fontSize="small" onClick={() => dispatch(removeCurrency(c.name))} />
           </div>
         ))}
       </div>
