@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
-import store from "../../store";
 import { loadCurrencies } from "../../redux/pairs-reducer";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./styles.scss";
+import Panel from "./panel/Panel";
 
 function CurrencyPairs() {
   const pairs = useAppSelector((state: any) => state.pairs);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    store.dispatch(loadCurrencies());
+    dispatch(loadCurrencies());
   }, []);
 
   return (
     <div className="exchanges">
+      <Panel/>
       <div className="exchange exchange--green">
         <h2 className="exchange__title">EXMO</h2>
         <div className="exchange__pairs">

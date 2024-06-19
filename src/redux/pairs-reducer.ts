@@ -6,11 +6,9 @@ import { pairs as okxPairsRequest } from "../okx-api/requests";
 export const pairsSlice = createSlice({
   name: "pairs",
   initialState: {
-    value: {
-      exmo: [],
-      binance: [],
-      okx: [],
-    },
+    exmo: [],
+    binance: [],
+    okx: [],
   },
   reducers: {
     updateCurrencies: (state, action) => {
@@ -37,7 +35,7 @@ export function loadCurrencies() {
 
     dispatch(
       updateCurrencies({
-        ...getState().pairs.value,
+        ...getState().pairs,
         exmo: Object.entries(responses[0].data).map((s) => s[0]),
         binance: responses[1].data.symbols
           .filter((s: any) => s.status === "TRADING")
