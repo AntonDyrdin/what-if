@@ -1,12 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Plot from "react-plotly.js";
-import { Layout, Config } from "plotly.js";
+import { Layout, Config, PlotData } from "plotly.js";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
 import { loadHistory } from "../../../redux/pairs-reducer";
 
 const Chart: React.FC = () => {
   const timeSerieses = useAppSelector((state: any) => state.pairs.timeSerieses);
   const dispatch = useAppDispatch();
+  const protRef = useRef<any>();
+  const [layout, setLayout] = useState<Partial<Layout>>({
+    xaxis: {
+      type: "date",
+      tickfont: {
+        color: "white",
+      },
+      gridcolor: "rgba(255, 255, 255, 0.2)",
+    },
+    yaxis: {
+      tickfont: {
+        color: "white",
+      },
+      gridcolor: "rgba(255, 255, 255, 0.2)",
+    },
+    plot_bgcolor: "#1f1f1f",
+    paper_bgcolor: "#1f1f1f",
+    font: {
+      color: "white",
+    },
+    showlegend: true,
+    autosize: true,
+    margin: { t: 20, b: 40, l: 40, r: 20 },
+  });
+
+  const [config] = useState<Partial<Config>>({
+    responsive: true,
+    scrollZoom: true,
+    displayModeBar: true,
+    displaylogo: false,
+  });
+
   useEffect(() => {
     dispatch(
       loadHistory(
@@ -16,42 +48,28 @@ const Chart: React.FC = () => {
     );
   }, [dispatch]);
 
-  const layout: Partial<Layout> = {
-    xaxis: {
-      type: "date",
-      tickfont: {
-        color: "white", // Цвет меток на оси X
-      },
-      gridcolor: "rgba(255, 255, 255, 0.2)", // Цвет сетки оси X
-    },
-    yaxis: {
-      tickfont: {
-        color: "white", // Цвет меток на оси Y
-      },
-      gridcolor: "rgba(255, 255, 255, 0.2)", // Цвет сетки оси Y
-    },
-    plot_bgcolor: "#1f1f1f", // Цвет фона графика
-    paper_bgcolor: "#1f1f1f", // Цвет фона области за графиком
-    font: {
-      color: "white", // Цвет текста на графике
-    },
-    showlegend: true,
-    autosize: true,
-    margin: { t: 20, b: 40, l: 40, r: 20 }, // Задаем отступы по краям графика
-    // Устанавливаем начальные значения диапазона осей
-  };
-
-  const config: Partial<Config> = {
-    responsive: true,
-    scrollZoom: true,
-    displayModeBar: true,
-    displaylogo: false,
-  };
-  console.log(timeSerieses);
+  useEffect(() => {
+    if (
+      timeSerieses.length > 0 &&
+      document &&
+      document.querySelector('[data-title="Autoscale"]')
+    ) {
+      setTimeout(
+        () =>
+          (
+            document.querySelector(
+              '[data-title="Autoscale"]'
+            ) as HTMLButtonElement
+          ).click(),
+        1000
+      );
+    }
+  }, [timeSerieses]);
 
   return (
     <Plot
-      data={[...timeSerieses]}
+      ref={protRef}
+      data={timeSerieses}
       layout={layout}
       config={config}
       style={{ width: "100%", height: "100%" }}
