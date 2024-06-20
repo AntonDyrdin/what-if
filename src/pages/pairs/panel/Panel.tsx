@@ -17,7 +17,7 @@ function Panel() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(readFiltersFromLocalStorage(0));
-  }, []);
+  }, [dispatch]);
 
   function textChanged(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setText(event.target.value.toUpperCase());

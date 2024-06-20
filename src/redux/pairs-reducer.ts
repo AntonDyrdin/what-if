@@ -1,17 +1,12 @@
 import { Slice, createSlice } from "@reduxjs/toolkit";
-import { pairs as exmoPairsRequest } from "../exmo-api/requests";
+import { pairs as exmoPairsRequest, history as exmoHistoryRequest } from "../exmo-api/requests";
 import { pairs as binancePairsRequest } from "../binance-api/requests";
 import { pairs as okxPairsRequest } from "../okx-api/requests";
-import store from "./store";
+import { PlotData } from "plotly.js";
 
 export interface IPair {
   name: string;
   visible: boolean;
-}
-
-export interface IPairsSlice {
-  exchanges: IExchange[];
-  filters: IFiltersState;
 }
 
 const FILTERS_LOCAL_STORAGE_KEY = "pairs-filter";
@@ -30,6 +25,12 @@ export interface IExchange {
   pairs: IPair[];
 }
 
+export interface IPairsSlice {
+  exchanges: IExchange[];
+  filters: IFiltersState;
+  timeSerieses: Partial<PlotData>[];
+}
+
 export const pairsSlice: Slice<IPairsSlice> = createSlice({
   name: "pairs",
   initialState: {
@@ -41,6 +42,7 @@ export const pairsSlice: Slice<IPairsSlice> = createSlice({
     filters: {
       currencies: [] as ICurrency[],
     },
+    timeSerieses: [] as Partial<PlotData>[],
   },
   reducers: {
     updateExchanges: (
@@ -91,9 +93,9 @@ export const pairsSlice: Slice<IPairsSlice> = createSlice({
             ...state.filters.currencies.map((c) =>
               c.name === action.payload
                 ? {
-                    ...c,
-                    selected: !c.selected,
-                  }
+                  ...c,
+                  selected: !c.selected,
+                }
                 : c
             ),
           ],
@@ -114,11 +116,17 @@ export const pairsSlice: Slice<IPairsSlice> = createSlice({
         return state;
       }
     },
+    updateTimeSerieses(state, action: { payload: Partial<PlotData>[] }) {
+      return {
+        ...state,
+        timeSerieses: action.payload,
+      };
+    }
   },
 });
 
 export function loadCurrencies() {
-  return async function thunk(dispatch: any, getState: any) {
+  return async function thunk(dispatch: any) {
     const responses = await Promise.all([
       exmoPairsRequest(),
       binancePairsRequest(),
@@ -154,6 +162,28 @@ export function loadCurrencies() {
   };
 }
 
+export function loadHistory(from: Date, to: Date) {
+  return async function thunk(dispatch: any) {
+    const response = await exmoHistoryRequest({
+      symbol: "BTC_USD",
+      resolution: 1,
+      from,
+      to
+    });
+    
+    const timeSeries: Partial<PlotData> = {
+      x:response.data.candles.map((c: any) => (new Date(c.t)).toISOString()),
+      y:response.data.candles.map((c: any) => c.c),
+      name: "BTC_USD",
+      type: 'scatter',
+      mode: 'lines+markers',
+      marker: { color: 'red' },
+    }
+
+    dispatch(updateTimeSerieses([timeSeries]));
+  };
+}
+
 const filterPairs = (state: IPairsSlice, currencies: ICurrency[]) => {
   return {
     ...state,
@@ -175,6 +205,7 @@ export const {
   appendCurrency,
   removeCurrency,
   flipSelection,
+  updateTimeSerieses,
 } = pairsSlice.actions;
 
 export default pairsSlice.reducer;
