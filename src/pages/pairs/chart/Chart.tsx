@@ -8,7 +8,8 @@ const Chart: React.FC = () => {
   const timeSerieses = useAppSelector((state: any) => state.pairs.timeSerieses);
   const dispatch = useAppDispatch();
   const protRef = useRef<any>();
-  const [layout, setLayout] = useState<Partial<Layout>>({
+
+  const layout: Partial<Layout> = {
     xaxis: {
       type: "date",
       tickfont: {
@@ -30,7 +31,7 @@ const Chart: React.FC = () => {
     showlegend: true,
     autosize: true,
     margin: { t: 20, b: 40, l: 40, r: 20 },
-  });
+  };
 
   const [config] = useState<Partial<Config>>({
     responsive: true,
@@ -43,7 +44,7 @@ const Chart: React.FC = () => {
     dispatch(
       loadHistory(
         new Date("2023-03-10T10:00:00"),
-        new Date("2023-03-10T11:00:00")
+        new Date("2023-03-10T19:00:00")
       )
     );
   }, [dispatch]);

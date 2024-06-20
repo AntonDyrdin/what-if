@@ -176,7 +176,7 @@ export function loadHistory(from: Date, to: Date) {
       y:response.data.candles.map((c: any) => c.c),
       name: "BTC_USD",
       type: 'scatter',
-      mode: 'lines+markers',
+      mode: 'lines',
       marker: { color: 'red' },
     }
 
