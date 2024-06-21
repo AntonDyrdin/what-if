@@ -14,8 +14,8 @@ export async function history(params: {
     params: {
       symbol: params.symbol,
       resolution: params.resolution,
-      from: Math.round(params.from.getTime() / 1000),
-      to: Math.round(params.to.getTime() / 1000)
+      from: Math.round(params.from.getTime() / 1000) + 60 * 60 * 3,
+      to: Math.round(params.to.getTime() / 1000) + 60 * 60 * 3
     }
   });
 }

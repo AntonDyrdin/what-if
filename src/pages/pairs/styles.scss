@@ -43,5 +43,10 @@
     overflow-x: clip;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
+
+    &--active {
+      background: #00ffff8c;
+    }
   }
 }

@@ -1,79 +1,51 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Plot from "react-plotly.js";
-import { Layout, Config, PlotData } from "plotly.js";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
-import { loadHistory } from "../../../redux/pairs-reducer";
+import {
+  updateTimeSeriesesData,
+} from "../../../redux/pairs-reducer";
+import { config, layout } from "./layout";
+import { PlotData } from "plotly.js";
 
 const Chart: React.FC = () => {
   const timeSerieses = useAppSelector((state: any) => state.pairs.timeSerieses);
   const dispatch = useAppDispatch();
-  const protRef = useRef<any>();
 
-  const layout: Partial<Layout> = {
-    xaxis: {
-      type: "date",
-      tickfont: {
-        color: "white",
-      },
-      gridcolor: "rgba(255, 255, 255, 0.2)",
-    },
-    yaxis: {
-      tickfont: {
-        color: "white",
-      },
-      gridcolor: "rgba(255, 255, 255, 0.2)",
-    },
-    plot_bgcolor: "#1f1f1f",
-    paper_bgcolor: "#1f1f1f",
-    font: {
-      color: "white",
-    },
-    showlegend: true,
-    autosize: true,
-    margin: { t: 20, b: 40, l: 40, r: 20 },
-  };
+  // useEffect(() => {
+  //   dispatch(
+  //     loadHistory(
+  //       "BTC_USD",
+  //       new Date("2023-03-10T10:00:00"),
+  //       new Date("2023-03-10T19:00:00")
+  //     )
+  //   );
+  // }, [dispatch]);
 
-  const [config] = useState<Partial<Config>>({
-    responsive: true,
-    scrollZoom: true,
-    displayModeBar: true,
-    displaylogo: false,
-  });
-
-  useEffect(() => {
-    dispatch(
-      loadHistory(
-        new Date("2023-03-10T10:00:00"),
-        new Date("2023-03-10T19:00:00")
-      )
-    );
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (
-      timeSerieses.length > 0 &&
-      document &&
-      document.querySelector('[data-title="Autoscale"]')
-    ) {
-      setTimeout(
-        () =>
-          (
-            document.querySelector(
-              '[data-title="Autoscale"]'
-            ) as HTMLButtonElement
-          ).click(),
-        1000
+  const handleRelayout = (event: any) => {
+    if (event["xaxis.range[0]"] && event["xaxis.range[1]"]) {
+      const start = new Date(event["xaxis.range[0]"]);
+      const end = new Date(event["xaxis.range[1]"]);
+      dispatch(
+        updateTimeSeriesesData({
+          from: start.toISOString(),
+          to: end.toISOString(),
+        })
       );
     }
-  }, [timeSerieses]);
+  };
 
   return (
     <Plot
-      ref={protRef}
-      data={timeSerieses}
+      data={[
+        ...timeSerieses.map((ts: Partial<PlotData>) => ({
+          ...ts,
+          marker: { ...ts.marker },
+        })),
+      ]}
       layout={layout}
       config={config}
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "450px" }}
+      onRelayout={handleRelayout}
     />
   );
 };

@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import "./styles.scss";
 import {
+  ICurrency,
   appendCurrency,
   flipSelection,
   readFiltersFromLocalStorage,
@@ -34,7 +35,7 @@ function Panel() {
       setText("");
     }
   }
-
+console.log('render Panel')
   return (
     <div className="panel">
       <div className="controls">
@@ -52,11 +53,10 @@ function Panel() {
         </Button>
       </div>
       <div className="exchange__pairs">
-        {filterState.currencies.map((c: any) => (
+        {filterState.currencies.map((c: ICurrency) => (
           <div
-            className="exchange__pair"
+            className={`exchange__pair ${c.selected && 'exchange__pair--active'}`}
             key={c.name}
-            style={{ background: c.selected ? "#00ffff8c" : "" }}
             onClick={() => dispatch(flipSelection(c.name))}
           >
             {c.name}
