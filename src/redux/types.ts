@@ -27,7 +27,7 @@ export interface ITimeInterval {
   from: string;
   to: string;
 }
-export interface IPairsSlice {
+export interface IExchangesSlice {
   exchanges: IExchange[];
   filters: IFiltersState;
   timeSerieses: Partial<PlotData>[];

@@ -3,21 +3,11 @@ import Plot from "react-plotly.js";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
 import { config, layout } from "./layout";
 import { PlotData } from "plotly.js";
-import { updateTimeSeriesesData } from "../../../redux/slices/pairs/pairs-thunks";
+import { updateTimeSeriesesData } from "../../../redux/slices/exchanges/exchanges-thunks";
 
 const Chart: React.FC = () => {
-  const timeSerieses = useAppSelector((state: any) => state.pairs.timeSerieses);
+  const timeSerieses = useAppSelector((state: any) => state.exchanges.timeSerieses);
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   dispatch(
-  //     loadHistory(
-  //       "BTC_USD",
-  //       new Date("2023-03-10T10:00:00"),
-  //       new Date("2023-03-10T19:00:00")
-  //     )
-  //   );
-  // }, [dispatch]);
 
   const handleRelayout = (event: any) => {
     if (event["xaxis.range[0]"] && event["xaxis.range[1]"]) {

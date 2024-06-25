@@ -6,14 +6,14 @@ import {
   flipSelection,
   readFiltersFromLocalStorage,
   removeCurrency,
-} from "../../../redux/slices/pairs/pairs-reducer";
+} from "../../../redux/slices/exchanges/exchanges-reducer";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { ICurrency } from "../../../redux/types";
 
 function Panel() {
-  const filterState = useAppSelector((state) => state.pairs.filters);
+  const filterState = useAppSelector((state) => state.exchanges.filters);
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
   useEffect(() => {

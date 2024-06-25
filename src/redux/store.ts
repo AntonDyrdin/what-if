@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import pairsReducer from './slices/pairs/pairs-reducer';
+import exchangesReducer from './slices/exchanges/exchanges-reducer';
 
 const store = configureStore({
   reducer: {
-    pairs: pairsReducer,
+    exchanges: exchangesReducer,
   },
 },)
 
 export default store;
 
-// Выведение типов `RootState` и `AppDispatch` из хранилища
 export type RootState = ReturnType<typeof store.getState>
-// Выведенные типы: {pairs: PairsState}
 export type AppDispatch = typeof store.dispatch

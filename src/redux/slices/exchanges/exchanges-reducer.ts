@@ -1,15 +1,18 @@
 import { Slice, createSlice } from "@reduxjs/toolkit";
 import { PlotData } from "plotly.js";
-import { IPairsSlice, IPair, ICurrency, IExchange, IFiltersState, ITimeInterval } from "../../types";
+import { IExchangesSlice, IPair, ICurrency, IExchange, IFiltersState, ITimeInterval } from "../../types";
 import { FILTERS_LOCAL_STORAGE_KEY } from "../../constants";
+import { exmoApi } from "../../../exchanges-api/exmo";
+import { binanceApi } from "../../../exchanges-api/binance";
+import { okxApi } from "../../../exchanges-api/okx";
 
-export const pairsSlice: Slice<IPairsSlice> = createSlice({
-  name: "pairs",
+export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
+  name: "exchanges",
   initialState: {
     exchanges: [
-      { name: "exmo", pairs: [] as IPair[] },
-      { name: "binance", pairs: [] as IPair[] },
-      { name: "okx", pairs: [] as IPair[] },
+      { name: exmoApi.name, pairs: [] as IPair[] },
+      { name: binanceApi.name, pairs: [] as IPair[] },
+      { name: okxApi.name, pairs: [] as IPair[] },
     ],
     filters: {
       currencies: [] as ICurrency[],
@@ -106,7 +109,7 @@ export const pairsSlice: Slice<IPairsSlice> = createSlice({
   },
 });
 
-const filterPairs = (state: IPairsSlice, currencies: ICurrency[]) => {
+const filterPairs = (state: IExchangesSlice, currencies: ICurrency[]) => {
   return {
     ...state,
     exchanges: state.exchanges.map((exchange) => ({
@@ -129,6 +132,6 @@ export const {
   flipSelection,
   updateTimeSerieses,
   updateTimeInterval,
-} = pairsSlice.actions;
+} = exchangesSlice.actions;
 
-export default pairsSlice.reducer;
+export default exchangesSlice.reducer;

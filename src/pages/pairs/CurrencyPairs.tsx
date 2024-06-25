@@ -4,10 +4,10 @@ import "./styles.scss";
 import Panel from "./panel/Panel";
 import Chart from "./chart/Chart";
 import { IExchange, IPair } from "../../redux/types";
-import { loadCurrencies, togglePair } from "../../redux/slices/pairs/pairs-thunks";
+import { loadCurrencies, togglePair } from "../../redux/slices/exchanges/exchanges-thunks";
 
 function CurrencyPairs() {
-  const exchanges = useAppSelector((state: any) => state.pairs.exchanges);
+  const exchanges = useAppSelector((state: any) => state.exchanges.exchanges);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
