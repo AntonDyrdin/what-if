@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import pairsReducer from './pairs-reducer';
+import pairsReducer from './slices/pairs/pairs-reducer';
 
 const store = configureStore({
   reducer: {

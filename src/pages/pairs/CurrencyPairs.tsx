@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
-import {
-  IExchange,
-  IPair,
-  loadCurrencies,
-  togglePair,
-} from "../../redux/pairs-reducer";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./styles.scss";
 import Panel from "./panel/Panel";
 import Chart from "./chart/Chart";
+import { IExchange, IPair } from "../../redux/types";
+import { loadCurrencies, togglePair } from "../../redux/slices/pairs/pairs-thunks";
 
 function CurrencyPairs() {
   const exchanges = useAppSelector((state: any) => state.pairs.exchanges);

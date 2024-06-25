@@ -2,15 +2,15 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import "./styles.scss";
 import {
-  ICurrency,
   appendCurrency,
   flipSelection,
   readFiltersFromLocalStorage,
   removeCurrency,
-} from "../../../redux/pairs-reducer";
+} from "../../../redux/slices/pairs/pairs-reducer";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { ICurrency } from "../../../redux/types";
 
 function Panel() {
   const filterState = useAppSelector((state) => state.pairs.filters);

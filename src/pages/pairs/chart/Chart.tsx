@@ -1,11 +1,9 @@
 import React from "react";
 import Plot from "react-plotly.js";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
-import {
-  updateTimeSeriesesData,
-} from "../../../redux/pairs-reducer";
 import { config, layout } from "./layout";
 import { PlotData } from "plotly.js";
+import { updateTimeSeriesesData } from "../../../redux/slices/pairs/pairs-thunks";
 
 const Chart: React.FC = () => {
   const timeSerieses = useAppSelector((state: any) => state.pairs.timeSerieses);
