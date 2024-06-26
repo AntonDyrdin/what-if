@@ -1,27 +1,28 @@
 import { Slice, createSlice } from "@reduxjs/toolkit";
 import { PlotData } from "plotly.js";
-import { IExchangesSlice, IPair, ICurrency, IExchange, IFiltersState, ITimeInterval } from "../../types";
+import {
+  IExchangesSlice,
+  IPair,
+  ICurrency,
+  IExchange,
+  IFiltersState,
+  ITimeInterval,
+} from "../../types";
 import { FILTERS_LOCAL_STORAGE_KEY } from "../../constants";
-import { exmoApi } from "../../../exchanges-api/exmo";
-import { binanceApi } from "../../../exchanges-api/binance";
-import { okxApi } from "../../../exchanges-api/okx";
+import { apiInstances } from "../../../exchanges-api/api-instances";
 
 export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
   name: "exchanges",
   initialState: {
-    exchanges: [
-      { name: exmoApi.name, pairs: [] as IPair[] },
-      { name: binanceApi.name, pairs: [] as IPair[] },
-      { name: okxApi.name, pairs: [] as IPair[] },
-    ],
+    exchanges: apiInstances.map((apiInstance) => ({ name: apiInstance.name, pairs: [] as IPair[] })),
     filters: {
       currencies: [] as ICurrency[],
     },
     timeSerieses: [] as Partial<PlotData>[],
     timeInterval: {
       from: "2023-03-10T10:00:00",
-      to: "2023-03-10T19:00:00"
-    }
+      to: "2023-03-10T19:00:00",
+    },
   },
   reducers: {
     updateTimeInterval: (state, action: { payload: ITimeInterval }) => {
@@ -77,9 +78,9 @@ export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
             ...state.filters.currencies.map((c) =>
               c.name === action.payload
                 ? {
-                  ...c,
-                  selected: !c.selected,
-                }
+                    ...c,
+                    selected: !c.selected,
+                  }
                 : c
             ),
           ],
@@ -105,7 +106,7 @@ export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
         ...state,
         timeSerieses: action.payload,
       };
-    }
+    },
   },
 });
 

@@ -3,17 +3,18 @@ import { getRandomColor } from "../../../utils";
 import { RootState } from "../../store";
 import { IExchange, IPair, ITimeInterval } from "../../types";
 import { exmoApi } from "../../../exchanges-api/exmo";
+import { apiInstances } from "../../../exchanges-api/api-instances";
 
 export function loadCurrencies() {
   return async function thunk(dispatch: any, getState: () => RootState) {
     const responses = await Promise.all(
-      getState().exchanges.exchanges.map((exchange) => exchange.pairs)
+      apiInstances.map((api) => api.pairs())
     );
 
     dispatch(
       updateExchanges(
         getState().exchanges.exchanges.map((exchange, index) => ({
-          name: exchange.name,
+          ...exchange,
           pairs: responses[index],
         }))
       )

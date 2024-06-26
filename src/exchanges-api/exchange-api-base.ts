@@ -3,13 +3,17 @@ import { IPair } from "../redux/types";
 
 export abstract class ExchangeApiBase {
   name: string;
-  API: AxiosInstance;
+  private _API: AxiosInstance;
 
   constructor(name: string, apiUrl: string) {
     this.name = name;
-    this.API = axios.create({
+    this._API = axios.create({
       baseURL: apiUrl,
     });
+  }
+
+  get API(): AxiosInstance {
+    return this._API;
   }
 
   abstract pairs(): Promise<IPair[]>;

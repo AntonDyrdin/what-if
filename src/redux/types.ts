@@ -1,6 +1,7 @@
 import { RootState } from "./store";
 import { getRandomColor } from "../utils";
 import { PlotData } from "plotly.js";
+import { ExchangeApiBase } from "../exchanges-api/exchange-api-base";
 
 export interface IPair {
   name: string;

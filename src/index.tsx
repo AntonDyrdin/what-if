@@ -11,8 +11,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Flickering from "./pages/direct-dom-access/Flickering";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import CurrencyPairs from "./pages/pairs/CurrencyPairs";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CurrencyPairs } from "./pages/pairs/CurrencyPairs";
+import { ThemeProvider } from "@mui/material/styles";
+import { darkTheme } from "./mui-theme";
 
 const router = createBrowserRouter([
   {
@@ -25,21 +26,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: "#004447",
-    },
-    secondary: {
-      main: "#00ff4c",
-    },
-  },
-});
-
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
