@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { FC, memo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./styles.scss";
-import Panel from "./panel/Panel";
 import Chart from "./chart/Chart";
 import { IExchange, IPair } from "../../redux/types";
 import { loadCurrencies, togglePair } from "../../redux/slices/exchanges/exchanges-thunks";
+import { Panel } from "./panel/Panel";
 
-function CurrencyPairs() {
+export const CurrencyPairs: FC = memo(() => {
   const exchanges = useAppSelector((state: any) => state.exchanges.exchanges);
   const dispatch = useAppDispatch();
 
@@ -33,9 +33,7 @@ function CurrencyPairs() {
                   .map((p: IPair) => {
                     return (
                       <div
-                        className={`exchange__pair ${
-                          p.selected && "exchange__pair--active"
-                        }`}
+                        className={`exchange__pair ${p.selected && "exchange__pair--active"}`}
                         key={p.name}
                         onClick={() => onPairClicked(exchange, p)}
                       >
@@ -48,6 +46,4 @@ function CurrencyPairs() {
         ))}
     </div>
   );
-}
-
-export default CurrencyPairs;
+});

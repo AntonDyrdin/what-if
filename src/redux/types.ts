@@ -4,6 +4,7 @@ import { PlotData } from "plotly.js";
 import { ExchangeApiBase } from "../exchanges-api/exchange-api-base";
 
 export interface IPair {
+  id: string;
   name: string;
   visible: boolean;
   selected: boolean;
@@ -24,13 +25,16 @@ export interface IExchange {
 }
 
 export interface ITimeInterval {
-  // ISO Date - "2023-03-10T10:00:00"
+  /* ISO Date - "2023-03-10T10:00:00" */
   from: string;
   to: string;
 }
+
+export type TTimeSeries = Partial<PlotData> & { exchangeName: string; pairId: string };
+
 export interface IExchangesSlice {
   exchanges: IExchange[];
   filters: IFiltersState;
-  timeSerieses: Partial<PlotData>[];
+  timeSerieses: TTimeSeries[];
   timeInterval: ITimeInterval;
 }

@@ -7,6 +7,7 @@ import {
   IExchange,
   IFiltersState,
   ITimeInterval,
+  TTimeSeries,
 } from "../../types";
 import { FILTERS_LOCAL_STORAGE_KEY } from "../../constants";
 import { apiInstances } from "../../../exchanges-api/api-instances";
@@ -18,10 +19,10 @@ export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
     filters: {
       currencies: [] as ICurrency[],
     },
-    timeSerieses: [] as Partial<PlotData>[],
+    timeSerieses: [] as TTimeSeries[],
     timeInterval: {
-      from: "2023-03-10T10:00:00",
-      to: "2023-03-10T19:00:00",
+      from: "2024-06-10T10:00:00",
+      to: "2024-06-10T19:00:00",
     },
   },
   reducers: {
@@ -53,10 +54,13 @@ export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
       };
 
       localStorage.setItem(FILTERS_LOCAL_STORAGE_KEY, JSON.stringify(filters));
-      return {
-        ...state,
-        filters,
-      };
+      return filterPairs(
+        {
+          ...state,
+          filters,
+        },
+        filters.currencies
+      );
     },
     removeCurrency: (state, action: { payload: string }) => {
       const filters = {
@@ -101,7 +105,7 @@ export const exchangesSlice: Slice<IExchangesSlice> = createSlice({
         return state;
       }
     },
-    updateTimeSerieses(state, action: { payload: Partial<PlotData>[] }) {
+    updateTimeSerieses(state, action: { payload: TTimeSeries[] }) {
       return {
         ...state,
         timeSerieses: action.payload,

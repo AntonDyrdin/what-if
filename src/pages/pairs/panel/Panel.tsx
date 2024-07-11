@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import "./styles.scss";
 import {
@@ -12,7 +12,7 @@ import { TextField } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { ICurrency } from "../../../redux/types";
 
-function Panel() {
+export const Panel: FC = memo(() => {
   const filterState = useAppSelector((state) => state.exchanges.filters);
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ function Panel() {
       setText("");
     }
   }
-console.log('render Panel')
+
   return (
     <div className="panel">
       <div className="controls">
@@ -66,6 +66,4 @@ console.log('render Panel')
       </div>
     </div>
   );
-}
-
-export default Panel;
+});

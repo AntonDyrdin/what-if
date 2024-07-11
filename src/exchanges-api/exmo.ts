@@ -1,13 +1,13 @@
 import { IPair } from "../redux/types";
 import { ExchangeApiBase, IHistoryRequest } from "./exchange-api-base";
 
-const API_URL = "https://api.exmo.me/v1.1";
+const API_URL = "https://api.exmo.me";
 
 export class ExmoApi extends ExchangeApiBase implements IHistoryRequest {
   async pairs(): Promise<IPair[]> {
-    const response = await this.API.get("/ticker");
+    const response = await this.API.get("/v1.1/ticker");
     return Object.entries(response.data).map((s) => {
-      return { name: s[0], visible: true, selected: false };
+      return { name: s[0].replace("_", "/"), id: s[0], visible: true, selected: false };
     });
   }
 
@@ -17,12 +17,12 @@ export class ExmoApi extends ExchangeApiBase implements IHistoryRequest {
     from: Date;
     to: Date;
   }): Promise<{ x: string[]; y: number[] }> {
-    const response = await this.API.get("/candles_history", {
+    const response = await this.API.get("/v1.1/candles_history", {
       params: {
         symbol: params.symbol,
         resolution: params.resolution,
-        from: Math.round(params.from.getTime() / 1000) + 60 * 60 * 3,
-        to: Math.round(params.to.getTime() / 1000) + 60 * 60 * 3,
+        from: Math.round(params.from.getTime() / 1000) - new Date().getTimezoneOffset() * 60,
+        to: Math.round(params.to.getTime() / 1000) - new Date().getTimezoneOffset() * 60,
       },
     });
 

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { IPair } from "../redux/types";
 
-export abstract class ExchangeApiBase {
+export abstract class ExchangeApiBase implements IHistoryRequest {
   name: string;
   private _API: AxiosInstance;
 
@@ -17,6 +17,12 @@ export abstract class ExchangeApiBase {
   }
 
   abstract pairs(): Promise<IPair[]>;
+  abstract history(params: {
+    symbol: string;
+    resolution: number;
+    from: Date;
+    to: Date;
+  }): Promise<{ x: string[]; y: number[] }>
 }
 
 export interface IHistoryRequest {

@@ -2,14 +2,11 @@ import { updateExchanges, updateTimeInterval, updateTimeSerieses } from "./excha
 import { getRandomColor } from "../../../utils";
 import { RootState } from "../../store";
 import { IExchange, IPair, ITimeInterval } from "../../types";
-import { exmoApi } from "../../../exchanges-api/exmo";
-import { apiInstances } from "../../../exchanges-api/api-instances";
+import { apiInstances, apiInstancesMap } from "../../../exchanges-api/api-instances";
 
 export function loadCurrencies() {
   return async function thunk(dispatch: any, getState: () => RootState) {
-    const responses = await Promise.all(
-      apiInstances.map((api) => api.pairs())
-    );
+    const responses = await Promise.all(apiInstances.map((api) => api.pairs()));
 
     dispatch(
       updateExchanges(
@@ -47,14 +44,16 @@ export function togglePair(exchange: IExchange, pair: IPair) {
 
     // выше была произведена инверсия этого флага
     if (pair.selected) {
-      dispatch(updateTimeSerieses([...state.timeSerieses.filter((ts) => ts.name !== pair.name)]));
+      dispatch(updateTimeSerieses([...state.timeSerieses.filter((ts) => ts.name !== pair.name && ts.exchangeName !== exchange.name)]));
     } else {
-      const timeSeries = state.timeSerieses.find((ts) => ts.name === pair.name);
+      const timeSeries = state.timeSerieses.find((ts) => ts.name === pair.name && ts.exchangeName === exchange.name);
       if (!timeSeries) {
         dispatch(
           updateTimeSerieses([
             ...state.timeSerieses,
             {
+              exchangeName: exchange.name,
+              pairId: pair.id,
               x: [],
               y: [],
               name: pair.name,
@@ -64,15 +63,15 @@ export function togglePair(exchange: IExchange, pair: IPair) {
             },
           ])
         );
-        dispatch(loadHistory(pair.name));
+        dispatch(loadHistory(exchange.name, pair.id));
       }
     }
   };
 }
 
-export function loadHistory(symbol: string) {
+export function loadHistory(exchangeName: string, symbol: string) {
   return async function thunk(dispatch: any, getState: () => RootState) {
-    const response = await exmoApi.history({
+    const response = await apiInstancesMap.get(exchangeName)!.history({
       symbol,
       resolution: 1,
       from: new Date(getState().exchanges.timeInterval.from),
@@ -82,7 +81,7 @@ export function loadHistory(symbol: string) {
     dispatch(
       updateTimeSerieses(
         getState().exchanges.timeSerieses.map((timeSeries) =>
-          timeSeries.name === symbol
+          timeSeries.pairId === symbol
             ? {
                 ...timeSeries,
                 ...response,
@@ -100,7 +99,7 @@ export function updateTimeSeriesesData(timeInterval: ITimeInterval) {
 
     getState().exchanges.timeSerieses.forEach((ts) => {
       if (ts.name) {
-        dispatch(loadHistory(ts.name));
+        dispatch(loadHistory(ts.exchangeName, ts.pairId));
       }
     });
   };
