@@ -45,9 +45,9 @@ export class OkxApi extends ExchangeApiBase {
       params: {
         instId: params.symbol,
         bar,
-        before: params.from.getTime().toString(),
-        after: params.to.getTime().toString(),
-        limit: "1000",
+        before:( params.from.getTime() - new Date().getTimezoneOffset() * 60* 1000).toString(),
+        after: (params.to.getTime() - new Date().getTimezoneOffset() * 60 * 1000).toString(),
+        limit: "100",
       },
     });
 

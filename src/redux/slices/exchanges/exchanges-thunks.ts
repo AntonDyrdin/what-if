@@ -44,7 +44,7 @@ export function togglePair(exchange: IExchange, pair: IPair) {
 
     // выше была произведена инверсия этого флага
     if (pair.selected) {
-      dispatch(updateTimeSerieses([...state.timeSerieses.filter((ts) => ts.name !== pair.name && ts.exchangeName !== exchange.name)]));
+      dispatch(updateTimeSerieses([...state.timeSerieses.filter((ts) => ts.name !== pair.name || ts.exchangeName !== exchange.name)]));
     } else {
       const timeSeries = state.timeSerieses.find((ts) => ts.name === pair.name && ts.exchangeName === exchange.name);
       if (!timeSeries) {

@@ -5,10 +5,14 @@ import { config, layout } from "./layout";
 import { updateTimeSeriesesData } from "../../../redux/slices/exchanges/exchanges-thunks";
 import { TTimeSeries } from "../../../redux/types";
 import { Button } from "@mui/material";
-import './styles.scss'
+import "./styles.scss";
 
 const Chart: React.FC = () => {
-  const timeSerieses = useAppSelector((state: any) => state.exchanges.timeSerieses);
+  const timeSerieses = useAppSelector((state) => state.exchanges.timeSerieses);
+  const timeSeriesesMap: Map<string, TTimeSeries[]> = new Map();
+  timeSerieses.forEach((ts) => {
+    timeSeriesesMap.set(ts.name!, [...(timeSeriesesMap.get(ts.name!) || []), ts]);
+  });
   const dispatch = useAppDispatch();
 
   const handleRelayout = (event: any) => {
@@ -21,7 +25,7 @@ const Chart: React.FC = () => {
           to: end.toISOString(),
         })
       );
-      console.log(start, end)
+      console.log(start, end);
     }
   };
 
@@ -41,12 +45,18 @@ const Chart: React.FC = () => {
 
   return (
     <div>
-      <Button className="reset" variant="contained" onClick={reset}>Сбросить</Button>
+      <Button className="reset" variant="contained" onClick={reset}>
+        Сбросить
+      </Button>
       <div className="charts">
-        {timeSerieses.map((ts: TTimeSeries, index: number) => (
+        {Array.from(timeSeriesesMap.values()).map((tss: TTimeSeries[], index: number) => (
           <Plot
             key={index}
-            data={[{ ...ts, name: `${ts.name} ${ts.exchangeName}`, marker: { ...ts.marker } }]}
+            data={tss.map((ts) => ({
+              ...ts,
+              name: `${ts.name} ${ts.exchangeName}`,
+              marker: { ...ts.marker },
+            }))}
             layout={{
               ...layout,
               yaxis: { ...layout.yaxis, domain: [0, 1] },

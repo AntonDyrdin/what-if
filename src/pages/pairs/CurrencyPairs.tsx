@@ -7,7 +7,7 @@ import { loadCurrencies, togglePair } from "../../redux/slices/exchanges/exchang
 import { Panel } from "./panel/Panel";
 
 export const CurrencyPairs: FC = memo(() => {
-  const exchanges = useAppSelector((state: any) => state.exchanges.exchanges);
+  const exchanges = useAppSelector((state) => state.exchanges.exchanges);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
