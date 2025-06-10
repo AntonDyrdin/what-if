@@ -8,21 +8,16 @@ import "./index.scss";
 import "./reset-user-agent.css";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Flickering from "./pages/direct-dom-access/Flickering";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { CurrencyPairs } from "./pages/pairs/CurrencyPairs";
+import { HomePage } from "./pages/home/HomePage";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkTheme } from "./mui-theme";
+import { theme } from "./mui-theme";
 
 const router = createBrowserRouter([
   {
-    path: "/flash",
-    element: <Flickering />,
-  },
-  {
     path: "/",
-    element: <CurrencyPairs />,
+    element: <HomePage />,
   },
 ]);
 
@@ -30,7 +25,7 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
     </ThemeProvider>
   </Provider>
