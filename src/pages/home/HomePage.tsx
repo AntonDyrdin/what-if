@@ -68,7 +68,7 @@ export function HomePage() {
           <Flickity className="carousel" options={flickityOptions}>
             {fileNames.map((fileName, index) => (
               <div key={fileName} className="carousel-cell">
-                <img src={`/what-if/albom/stairs/${fileName}`}
+                <img src={`/what-if/build/albom/stairs/${fileName}`}
                   alt={`Фото ${index + 1}`}
                 />
               </div>
