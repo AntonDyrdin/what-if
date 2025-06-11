@@ -1,32 +1,21 @@
 import React from "react";
 import {
-  AppBar,
-  Toolbar,
   Typography,
-  Button,
   Box,
   Container,
-  Grid,
-  Card,
-  CardContent,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Link,
-  Stack
 } from "@mui/material";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import TelegramIcon from "@mui/icons-material/Telegram";
 import CheckIcon from "@mui/icons-material/Check";
 import Flickity from "react-flickity-component";
-import { WhatsAppIcon, VKIcon, Avito } from "./../../assets/icons";
 import "flickity/css/flickity.css";
 import "./styles.scss";
 import { fileNames } from "../../assets/file-list";
 import { Contacts } from "../../components/Contacts";
+import { Menu } from "../../components/Menu";
 
 const flickityOptions = {
   initialIndex: 0,
@@ -40,19 +29,7 @@ const flickityOptions = {
 export function HomePage() {
   return (
     <div style={{ maxWidth: "100%", overflow: "clip" }}>
-      <AppBar position="static">
-        <Toolbar sx={{ flexDirection: { sm: 'row' }, alignItems: 'center', gap: 1, padding: { xs: 0, sm: "0 32px 0 32px" } }}>
-          <Typography variant="h6" fontWeight={"bold"} color="white" sx={{ flexGrow: 1, textAlign: { xs: 'center', sm: 'left' } }} fontSize={{ xs: '24px' }}>
-            Лестницы от мастера
-          </Typography>
-          <Stack direction={{ xs: 'column', sm: 'row' }} width={{ xs: '60%', sm: 'auto' }} fontSize={{ xs: '20px', sm: 'auto' }} spacing={1} alignItems="center">
-            <Button color="inherit" href="#/albom" sx={{ fontSize: "inherit", textAlign: "center" }}>Альбом работ</Button>
-            <Button color="inherit" onClick={() => {
-              document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" });
-            }} sx={{ fontSize: "inherit", textAlign: "center" }}>Контакты</Button>
-          </Stack>
-        </Toolbar>
-      </AppBar>
+      <Menu title={"Альбом работ"} path={"#/albom"}/>
 
       <Container style={{ maxWidth: "1250px" }} sx={{ paddingTop: { xs: '22px', sm: '32px' }, px: "16px", paddingBottom: 0 }}>
         <Typography variant="h3" fontSize={{ xs: '28px', sm: '48px' }} gutterBottom>

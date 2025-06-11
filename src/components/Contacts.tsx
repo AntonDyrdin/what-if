@@ -1,18 +1,8 @@
 import React from "react";
 import {
-  AppBar,
-  Toolbar,
   Typography,
-  Button,
   Box,
   Container,
-  Grid,
-  Card,
-  CardContent,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Link,
   Stack
 } from "@mui/material";
@@ -20,8 +10,6 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import CheckIcon from "@mui/icons-material/Check";
-import Flickity from "react-flickity-component";
 import { WhatsAppIcon, VKIcon, Avito } from "./../assets/icons";
 import "flickity/css/flickity.css";
 
