@@ -42,7 +42,7 @@ export function Albom() {
           Наши работы
         </Typography>
 
-        <PhotoGallery images={fileNames.map((fileName) => `/albom/stairs/${fileName}`)} />
+        <PhotoGallery images={fileNames.map((fileName) => `/what-if/albom/stairs/${fileName}`)} />
 
       </Container>
       <Contacts></Contacts>
