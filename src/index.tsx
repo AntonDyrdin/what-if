@@ -14,8 +14,9 @@ import { HomePage } from "./pages/home/HomePage";
 import { Albom } from "./pages/albom/Albom";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./mui-theme";
+import { createHashRouter } from 'react-router-dom';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <HomePage />,
@@ -28,13 +29,11 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
     </ThemeProvider>
   </Provider>
-  //</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
