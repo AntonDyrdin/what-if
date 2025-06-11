@@ -61,11 +61,15 @@ export function Contacts() {
           }} justifyContent="space-between">
             <Stack direction="row" alignItems="center" spacing={1}>
               <PhoneIcon color="primary" />
-              <Typography variant="h6">+7 (999) 123-45-67</Typography>
+              <a href="tel:+7 (999) 123-45-67" style={{ textDecoration: "none", color: "inherit" }}>
+                <Typography variant="h6">+7 (999) 123-45-67</Typography>
+              </a>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={1}>
               <EmailIcon color="primary" />
-              <Typography variant="h6">master@lestnicy.ru</Typography>
+              <a href="mailto:master@lestnicy.ru" style={{ textDecoration: "none", color: "inherit" }}>
+                <Typography variant="h6">master@lestnicy.ru</Typography>
+              </a>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={{
               xs: 2,
