@@ -1,19 +1,34 @@
 .carousel {
-  height: 600px;
+  height: 80vh;
 }
 
 .carousel-cell {
   width: 100%;
   height: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+
+  img {
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+
+    @media (max-width: 600px) {
+      border-radius: 0px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
-.flickity-page-dots { bottom: 16px; }
+.flickity-page-dots {
+  bottom: 16px;
+}
 
-.albom-link-wrapper{
-    display: flex;
-    justify-content: center;
-    font-size: 18px;
-    margin-top: 12px;
+.albom-link-wrapper {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  margin-top: 12px;
 }

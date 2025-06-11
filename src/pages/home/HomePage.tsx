@@ -22,57 +22,59 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import CheckIcon from "@mui/icons-material/Check";
 import Flickity from "react-flickity-component";
-import { WhatsAppIcon, VKIcon } from "./../../assets/icons";
+import { WhatsAppIcon, VKIcon, Avito } from "./../../assets/icons";
 import "flickity/css/flickity.css";
 import "./styles.scss";
-import { url } from "inspector";
+import { fileNames } from "../../assets/file-list";
+import { Contacts } from "../../components/Contacts";
 
 const flickityOptions = {
   initialIndex: 0,
   autoPlay: false,
   fullscreen: true,
   setGallerySize: false,
+  pageDots: false,
+  wrapAround: true,
 };
-
-
-const fileNames = [
- "Изображение WhatsApp 2025-06-10 в 15.31.12_7513223e.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.12_459a4abc.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.09_75456907.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.13_b74159fd.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.14_0b9c08be.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.09_14ff511f.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.16_3eb73131.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.10_6aff8864.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.05_04a876ba.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.08_4989080d.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.13_3724a93e.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.14_b0f1214e.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.10_691a159c.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.07_31096ce3.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.06_688d4bec.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.16_2d5b5999.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.05_ccd3edab.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.13_1a7d80a8.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.14_0448dad9.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.13_32e5f661.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.14_192c8a84.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.08_7dfe6f2b.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.07_41855740.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.07_7da0a100.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.11_f98149aa.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.07_76f3aae4.jpg", "Изображение WhatsApp 2025-06-10 в 15.31.05_a8a551aa.jpg"
-];
 
 export function HomePage() {
   return (
-    <Box>
+    <div style={{ maxWidth: "100%", overflow: "clip" }}>
       <AppBar position="static">
-        <Toolbar style={{ justifyContent: "end" }}>
-          <Typography variant="h6" fontWeight={"bold"} sx={{ flexGrow: 1 }}>
+        <Toolbar sx={{ flexDirection: { sm: 'row' }, alignItems: 'center', gap: 1, padding: { xs: 0, sm: "0 32px 0 32px" } }}>
+          <Typography variant="h6" fontWeight={"bold"} color="white" sx={{ flexGrow: 1, textAlign: { xs: 'center', sm: 'left' } }} fontSize={{ xs: '24px' }}>
             Лестницы от мастера
           </Typography>
-          <Button color="inherit" href="#">Главная</Button>
-          <Button color="inherit" href="#gallery">Альбом работ</Button>
-          <Button color="inherit" href="#contacts">Контакты</Button>
+          <Stack direction={{ xs: 'column', sm: 'row' }} width={{ xs: '60%', sm: 'auto' }} fontSize={{ xs: '20px', sm: 'auto' }} spacing={1} alignItems="center">
+            <Button color="inherit" href="/albom" sx={{ fontSize: "inherit", textAlign: "center" }}>Альбом работ</Button>
+            <Button color="inherit" href="#contacts" sx={{ fontSize: "inherit", textAlign: "center" }}>Контакты</Button>
+          </Stack>
         </Toolbar>
       </AppBar>
 
-      <Container style={{ maxWidth: "1250px" }} sx={{ py: 4 }}>
-        <Typography variant="h3" gutterBottom>
+      <Container style={{ maxWidth: "1250px" }} sx={{ paddingTop: { xs: '22px', sm: '32px' }, px: "16px", paddingBottom: 0 }}>
+        <Typography variant="h3" fontSize={{ xs: '28px', sm: '48px' }} gutterBottom>
           Изготовление лестниц и металлоконструкций
         </Typography>
 
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" fontSize={{ xs: '18px', sm: '20px' }} gutterBottom>
           Опыт более 10 лет. Быстро, качественно и с гарантией.
           Большой альбом <strong>собственных</strong> работ. Приглашаем посмотреть и выбрать подходящее решение лично!
         </Typography>
 
-        <Box id="gallery" sx={{ my: 2 }}>
+        <Box sx={{ my: 2, margin: "16px -16px 16px -16px" }}>
           <Flickity className="carousel" options={flickityOptions}>
-            {fileNames.map((fileName) => (
-              <div key={fileName} className="carousel-cell" style={{ backgroundImage: `url('/albom/stairs/${fileName}')` }}>
+            {fileNames.map((fileName, index) => (
+              <div key={fileName} className="carousel-cell">
+                <img src={`/albom/stairs/${fileName}`}
+                  alt={`Фото ${index + 1}`}
+                />
               </div>
             ))}
           </Flickity>
 
           <div className="albom-link-wrapper">
-            <Link href="#gallery" fontWeight={"bold"}>
+            <Link href="/albom" fontWeight={"bold"}>
               Наши работы
             </Link>
           </div>
@@ -100,52 +102,11 @@ export function HomePage() {
           </List>
         </Box>
 
-        <Box sx={{ my: 4, marginBottom: "40px" }} id="contacts">
-          <Typography variant="h5" gutterBottom>
-            Контакты
-          </Typography>
-
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              bgcolor: '#f5f5f5',
-              p: 3,
-              borderRadius: 2
-            }}
-          >
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={4} alignItems="start" justifyContent="space-between">
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <LocationOnIcon color="primary" />
-                <Typography variant="h6">Липецк, пл. Ленина-Соборная, дом 1</Typography>
-              </Stack>
-            </Stack>
-
-            <Stack direction="row" spacing={12} justifyContent="start">
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <PhoneIcon color="primary" />
-                <Typography variant="h6">+7 (999) 123-45-67</Typography>
-              </Stack>
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <EmailIcon color="primary" />
-                <Typography variant="h6">master@lestnicy.ru</Typography>
-              </Stack>
-              <Stack direction="row" alignItems="center" spacing={3}>
-                <Link href="https://t.me/yourname" target="_blank">
-                  <TelegramIcon sx={{ color: '#0088cc' }} fontSize="large" />
-                </Link>
-                <Link href="https://wa.me/79991234567" target="_blank">
-                  <WhatsAppIcon sx={{ color: '#25D366' }} fontSize="large" />
-                </Link>
-                <Link href="https://vk.com/yourprofile" target="_blank">
-                  <VKIcon sx={{ color: '#4c75a3' }} fontSize="large" />
-                </Link>
-              </Stack>
-            </Stack>
-          </Box>
-        </Box>
+        <Typography variant="h5" gutterBottom>
+          Контакты
+        </Typography>
       </Container>
-    </Box>
+      <Contacts></Contacts>
+    </div>
   );
 }

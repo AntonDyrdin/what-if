@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { HomePage } from "./pages/home/HomePage";
+import { Albom } from "./pages/albom/Albom";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./mui-theme";
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: "/albom",
+    element: <Albom />,
   },
 ]);
 
