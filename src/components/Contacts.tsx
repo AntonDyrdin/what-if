@@ -49,7 +49,7 @@ export function Contacts() {
           }} spacing={4} alignItems="start" justifyContent="space-between">
             <Stack direction="row" alignItems="center" spacing={1}>
               <LocationOnIcon color="primary" />
-              <Typography variant="h5">Липецк, район пл. Героев</Typography>
+              <Typography variant="h6">Липецк, район пл. Героев</Typography>
             </Stack>
           </Stack>
 
@@ -61,11 +61,11 @@ export function Contacts() {
           }} justifyContent="space-between">
             <Stack direction="row" alignItems="center" spacing={1}>
               <PhoneIcon color="primary" />
-              <Typography variant="h5">+7 (999) 123-45-67</Typography>
+              <Typography variant="h6">+7 (999) 123-45-67</Typography>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={1}>
               <EmailIcon color="primary" />
-              <Typography variant="h5">master@lestnicy.ru</Typography>
+              <Typography variant="h6">master@lestnicy.ru</Typography>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={{
               xs: 2,
