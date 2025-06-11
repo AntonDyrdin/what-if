@@ -47,7 +47,9 @@ export function HomePage() {
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} width={{ xs: '60%', sm: 'auto' }} fontSize={{ xs: '20px', sm: 'auto' }} spacing={1} alignItems="center">
             <Button color="inherit" href="#/albom" sx={{ fontSize: "inherit", textAlign: "center" }}>Альбом работ</Button>
-            <Button color="inherit" href="#contacts" sx={{ fontSize: "inherit", textAlign: "center" }}>Контакты</Button>
+            <Button color="inherit" onClick={() => {
+              document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" });
+            }} sx={{ fontSize: "inherit", textAlign: "center" }}>Контакты</Button>
           </Stack>
         </Toolbar>
       </AppBar>

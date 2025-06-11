@@ -31,8 +31,10 @@ export function Albom() {
             Лестницы от мастера
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} width={{ xs: '60%', sm: 'auto' }} fontSize={{ xs: '20px', sm: 'auto' }} spacing={1} alignItems="center">
-            <Button color="inherit" href="/" sx={{ fontSize: "inherit", textAlign: "center" }}>Главная</Button>
-            <Button color="inherit" href="#contacts" sx={{ fontSize: "inherit", textAlign: "center" }}>Контакты</Button>
+            <Button color="inherit" href="./" sx={{ fontSize: "inherit", textAlign: "center" }}>Главная</Button>
+            <Button color="inherit" onClick={() => {
+              document.getElementById("contacts")?.scrollIntoView();
+            }} sx={{ fontSize: "inherit", textAlign: "center" }}>Контакты</Button>
           </Stack>
         </Toolbar>
       </AppBar>
