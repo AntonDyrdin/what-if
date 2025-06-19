@@ -13,7 +13,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
 import "./styles.scss";
-import { fileNames } from "../../assets/file-list";
+import { stairs_frames, stairs_frames_with_steps, stairs, roof_frames, roofs, fence_frames, fences } from "../../assets/file-list";
 import { Contacts } from "../../components/Contacts";
 import { Menu } from "../../components/Menu";
 
@@ -29,7 +29,7 @@ const flickityOptions = {
 export function HomePage() {
   return (
     <div style={{ maxWidth: "100%", overflow: "clip" }}>
-      <Menu title={"Альбом работ"} path={"#/albom"}/>
+      <Menu title={"Альбом работ"} path={"#/albom"} />
 
       <Container style={{ maxWidth: "1250px" }} sx={{ paddingTop: { xs: '22px', sm: '32px' }, px: "16px", paddingBottom: 0 }}>
         <Typography variant="h3" fontSize={{ xs: '28px', sm: '48px' }} gutterBottom>
@@ -43,13 +43,32 @@ export function HomePage() {
 
         <Box sx={{ my: 2, margin: "16px -16px 16px -16px" }}>
           <Flickity className="carousel" options={flickityOptions}>
-            {fileNames.map((fileName, index) => (
-              <div key={fileName} className="carousel-cell">
-                <img src={`/what-if/build/albom/stairs/${fileName}`}
-                  alt={`Фото ${index + 1}`}
-                />
-              </div>
-            ))}
+            {[
+              ...stairs,
+              ...roofs,
+              ...fences
+            ].map((fileName, index) => (
+                <div key={fileName} className="carousel-cell">
+                  <img src={`/what-if/build/albom/stairs/${fileName}`}
+                    alt={`Фото ${index + 1}`}
+                  />
+                </div>
+              ))}
+          </Flickity>
+
+          <Flickity className="carousel" options={flickityOptions}>
+            {[
+              ...stairs_frames,
+              ...stairs_frames_with_steps,
+              ...roof_frames,
+              ...fence_frames,
+            ].map((fileName, index) => (
+                <div key={fileName} className="carousel-cell">
+                  <img src={`/what-if/build/albom/stairs/${fileName}`}
+                    alt={`Фото ${index + 1}`}
+                  />
+                </div>
+              ))}
           </Flickity>
 
           <div className="albom-link-wrapper">
