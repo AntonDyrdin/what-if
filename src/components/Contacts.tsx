@@ -73,11 +73,6 @@ export function Contacts() {
                   color: '#25D366'
                 }} fontSize="large" />
               </Link>
-              <Link href="https://vk.com/yourprofile" target="_blank">
-                <VKIcon sx={{
-                  color: '#4c75a3'
-                }} fontSize="large" />
-              </Link>
               <Link href="https://www.avito.ru/user/0fe5689d4feac06ab0dcd315f353f8b9/profile" target="_blank">
                 <Avito sx={{
                   color: '#4c75a3'
