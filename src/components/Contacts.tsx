@@ -37,7 +37,7 @@ export function Contacts() {
           }} spacing={4} alignItems="start" justifyContent="space-between">
             <Stack direction="row" alignItems="center" spacing={1}>
               <LocationOnIcon color="primary" />
-              <Typography variant="h6">Липецк, район пл. Героев</Typography>
+              <Typography variant="h6">Липецк, ул. Тельмана, 116</Typography>
             </Stack>
           </Stack>
 
@@ -49,26 +49,26 @@ export function Contacts() {
           }} justifyContent="space-between">
             <Stack direction="row" alignItems="center" spacing={1}>
               <PhoneIcon color="primary" />
-              <a href="tel:+7 (999) 123-45-67" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="h6">+7 (999) 123-45-67</Typography>
+              <a href="tel:+7(993)430-88-06" style={{ textDecoration: "none", color: "inherit" }}>
+                <Typography variant="h6">+7(993)430-88-06</Typography>
               </a>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={1}>
               <EmailIcon color="primary" />
-              <a href="mailto:master@lestnicy.ru" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="h6">master@lestnicy.ru</Typography>
+              <a href="mailto:konika1973@mail.ru" style={{ textDecoration: "none", color: "inherit" }}>
+                <Typography variant="h6">konika1973@mail.ru</Typography>
               </a>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={{
               xs: 2,
               sm: 4
             }}>
-              <Link href="https://t.me/yourname" target="_blank">
+              <Link href="https://t.me/+79205008900" target="_blank">
                 <TelegramIcon sx={{
                   color: '#0088cc'
                 }} fontSize="large" />
               </Link>
-              <Link href="https://wa.me/79991234567" target="_blank">
+              <Link href="https://wa.me/79205008900" target="_blank">
                 <WhatsAppIcon sx={{
                   color: '#25D366'
                 }} fontSize="large" />
@@ -78,7 +78,7 @@ export function Contacts() {
                   color: '#4c75a3'
                 }} fontSize="large" />
               </Link>
-              <Link href="https://www.avito.ru/user/b7fe635c048a2c5abd83fd230bd94e0f/profile?id=7356338031" target="_blank">
+              <Link href="https://www.avito.ru/user/0fe5689d4feac06ab0dcd315f353f8b9/profile" target="_blank">
                 <Avito sx={{
                   color: '#4c75a3'
                 }} fontSize="large" />
