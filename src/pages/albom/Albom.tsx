@@ -27,7 +27,7 @@ export function Albom() {
           ...roof_frames,
           ...roofs,
           ...fence_frames,
-          ...fences].map((fileName) => `/what-if/build/albom/stairs/${fileName}`)} />
+          ...fences].map((fileName) => `/what-if/build/albom/${fileName}`)} />
 
       </Container>
       <Contacts></Contacts>

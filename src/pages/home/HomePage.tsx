@@ -41,21 +41,26 @@ export function HomePage() {
           Большой альбом <strong>собственных</strong> работ. Приглашаем посмотреть и выбрать подходящее решение лично!
         </Typography>
 
-        <Box sx={{ my: 2, margin: "16px -16px 16px -16px" }}>
+        <Box sx={{ my: 2, margin: "16px -16px 26px -16px" }}>
+          <Typography variant="h3" sx={{ margin: { xs: "20px 0 16px 0", sm: "22px 0 16px 0" } }} fontSize={{ xs: '18px', sm: '20px' }} fontWeight={"bold"} textAlign={"center"}>
+            Готовые изделия
+          </Typography>
           <Flickity className="carousel" options={flickityOptions}>
             {[
               ...stairs,
               ...roofs,
               ...fences
             ].map((fileName, index) => (
-                <div key={fileName} className="carousel-cell">
-                  <img src={`/what-if/build/albom/stairs/${fileName}`}
-                    alt={`Фото ${index + 1}`}
-                  />
-                </div>
-              ))}
+              <div key={fileName} className="carousel-cell">
+                <img src={`/what-if/build/albom/${fileName}`}
+                  alt={`Фото ${index + 1}`}
+                />
+              </div>
+            ))}
           </Flickity>
-
+          <Typography variant="h3" sx={{ margin: { xs: "22px 0 16px 0", sm: "26px 0 16px 0" } }} fontSize={{ xs: '18px', sm: '20px' }} fontWeight={"bold"} textAlign={"center"}>
+            Каркасы
+          </Typography>
           <Flickity className="carousel" options={flickityOptions}>
             {[
               ...stairs_frames,
@@ -63,23 +68,23 @@ export function HomePage() {
               ...roof_frames,
               ...fence_frames,
             ].map((fileName, index) => (
-                <div key={fileName} className="carousel-cell">
-                  <img src={`/what-if/build/albom/stairs/${fileName}`}
-                    alt={`Фото ${index + 1}`}
-                  />
-                </div>
-              ))}
+              <div key={fileName} className="carousel-cell">
+                <img src={`/what-if/build/albom/${fileName}`}
+                  alt={`Фото ${index + 1}`}
+                />
+              </div>
+            ))}
           </Flickity>
 
           <div className="albom-link-wrapper">
-            <Link href="#/albom" fontWeight={"bold"}>
-              Наши работы
+            <Link href="#/albom" fontSize={{ xs: '14px', sm: '16px' }} fontWeight={"bold"} textAlign={"center"}>
+              Нажмите, чтобы перейти в альбом наших работ
             </Link>
           </div>
         </Box>
 
         <Box sx={{ my: 2 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h5">
             Мы занимаемся изготовлением и монтажом:
           </Typography>
           <List>
@@ -95,7 +100,7 @@ export function HomePage() {
                 <ListItemIcon>
                   <CheckIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText primary={service} />
+                <ListItemText primary={service} primaryTypographyProps={{fontSize: { xs: '16px', sm: '18px' }}}/>
               </ListItem>
             ))}
           </List>
