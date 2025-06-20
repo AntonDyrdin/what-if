@@ -10,7 +10,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import { WhatsAppIcon, VKIcon, Avito } from "./../assets/icons";
+import { WhatsAppIcon, Avito } from "./../assets/icons";
 import "flickity/css/flickity.css";
 
 
@@ -18,7 +18,6 @@ export function Contacts() {
   return (
     <Box id="contacts">
       <Box sx={{
-        width: "100&",
         bgcolor: '#f5f5f5',
         padding: "32px 32px 60px 32px"
       }}>
@@ -31,10 +30,11 @@ export function Contacts() {
           },
           padding: 0,
         }}>
-          <Stack direction={{
-            xs: 'column',
-            sm: 'row'
-          }} spacing={4} alignItems="start" justifyContent="space-between">
+          <Stack direction={'column'} spacing={1} alignItems="start" justifyContent="space-between">
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <LocationOnIcon color="primary" />
+              <Typography variant="h6">Липецк, пр. Победы, 69А&nbsp;/&nbsp;2</Typography>
+            </Stack>
             <Stack direction="row" alignItems="center" spacing={1}>
               <LocationOnIcon color="primary" />
               <Typography variant="h6">Липецк, ул. Тельмана, 116</Typography>
